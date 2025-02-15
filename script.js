@@ -86,7 +86,7 @@ function analyzePassword(password) {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
 		sequenceAlignmentScore: actualUsage(password, 2000),
-		huffmanEncodingScore: encodePw(password), // To-Do
+		huffmanEncodingScore: encodePw(password),
 	};
 
 	return scores;
@@ -143,10 +143,10 @@ function updateUI(analysis) {
 	);
 
 	// Update Overall Strength Bar
-	let overallScore = 0;
+	let overallScore = 1;
 	for (const [scoreName, score] of Object.entries(analysis))
-		overallScore += score;
-	overallScore /= 4;
+		overallScore *= (score);
+	overallScore = overallScore**(1/4);
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
@@ -158,24 +158,35 @@ function updateUI(analysis) {
 function getSuggestions(analysis) {
 	const suggestions = [];
 
-	if (analysis.shannonEntropyScore < 60) {
-		suggestions.push("❌ Consider using a more diverse set of characters.");
-	}
+	console.log(analysis);
 
-	if (analysis.passwordEntropyScore < 60) {
-		suggestions.push("❌ Consider using a longer password.");
-	}
+	if (
+		analysis.shannonEntropyScore != 0 ||
+		analysis.passwordEntropyScore != 0 ||
+		analysis.sequenceAlignmentScore != 0 ||
+		analysis.huffmanEncodingScore != 0
+	) {
+		if (analysis.shannonEntropyScore < 60) {
+			suggestions.push(
+				"❌ Consider using a more diverse set of characters."
+			);
+		}
 
-	if (analysis.sequenceAlignmentScore < 60) {
-		suggestions.push(
-			"❌ This password is similar to one that has been broken before."
-		);
-	}
+		if (analysis.passwordEntropyScore < 60) {
+			suggestions.push("❌ Consider using a longer password.");
+		}
 
-	if (analysis.huffmanEncodingScore < 60) {
-		suggestions.push(
-			"❌ Consider using more rarely-used characters (e.g. '*', '%', etc.)."
-		);
+		if (analysis.sequenceAlignmentScore < 60) {
+			suggestions.push(
+				"❌ This password is similar to one that has been broken before."
+			);
+		}
+
+		if (analysis.huffmanEncodingScore < 60) {
+			suggestions.push(
+				"❌ Consider using more rarely-used characters (e.g. '*', '%', etc.)."
+			);
+		}
 	}
 
 	return suggestions;
@@ -191,7 +202,7 @@ function updateSuggestions(analysis) {
 	if (suggestions.length > 0) {
 		suggestions.forEach((suggestion, index) => {
 			const li = document.createElement("li");
-			li.className = "suggestion-item";
+			li.className = "suggestion-item my-2";
 
 			const hue = (index * 10) % 360;
 			li.style.backgroundColor = `hsla(${hue}, 70%, 90%, 0.9)`;
