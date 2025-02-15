@@ -112,7 +112,7 @@ function seqAlign(seq1, seq2, match = 0, mismatch = 1, gap = 1) {
     return [bestSeq, bestScore, bestAlignment, bestOperations, bestDetailedOps, bestPercentMatch];
   }
   
-  
+
   function exampleUsage()
   {
     const database = ["password123", "hahahaha", "lolXD", "123456"];
@@ -127,4 +127,19 @@ function seqAlign(seq1, seq2, match = 0, mismatch = 1, gap = 1) {
     console.log(`Alignment:\n${bestAlignment[0]}\n${bestAlignment[1]}`);
     console.log(`Operations: ${bestOperations}`);
     console.log(`Detailed Steps: ${bestDetailedOps}`);
+  }
+
+  
+  function actualUsage(password, numPassInDatabase)
+  {
+    const fs = require('fs');
+
+    // Read the file synchronously
+    const data = fs.readFileSync('ncscCommonPasswords.txt', 'utf8');
+
+    // Split the file into lines and take the first numPassInDatabase
+    const database = data.split(/\r?\n/).filter(line => line.trim() !== '').slice(0, numPassInDatabase);
+
+    const [bestSeq, bestScore, bestAlignment, bestOperations, bestDetailedOps, bestPercentMatch] = bestMatch(password, database);
+    return (100-bestPercentMatch);
   }
