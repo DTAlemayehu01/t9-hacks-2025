@@ -41,16 +41,119 @@
 							/>
 						</div>
 
+						<!-- Single Dynamic Modal -->
+						<div class="modal fade" id="dynamicModal" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5
+											class="modal-title"
+											id="dynamicModalLabel"
+										>
+											Modal Title
+										</h5>
+										<button
+											type="button"
+											class="btn-close"
+											data-bs-dismiss="modal"
+										></button>
+									</div>
+									<div class="modal-body">
+										<p>Modal content will be here</p>
+									</div>
+									<div class="modal-footer">
+										<button
+											type="button"
+											class="btn btn-secondary"
+											data-bs-dismiss="modal"
+										>
+											Close
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<!-- Shannon Entropy Strength Analysis -->
 						<div class="strength-analysis">
 							<div class="strength-text">
 								<p class="mb-1 fw-bold">
 									Shannon Entropy Level
-									<button class="btn">
+									<button
+										class="btn btn-link modal-btn text-muted p-0 m-0"
+										data-title="Shannon Entropy"
+										data-content="meow"
+									>
 										<i class="bi bi-info-circle-fill"></i>
 									</button>
 									:
 									<span id="shannonStrengthLevelText"></span>
+								</p>
+							</div>
+
+							<div class="strength-meter mb-3">
+								<div
+									class="progress-bar"
+									id="shannonStrengthBar"
+									role="progressbar"
+									style="
+										width: 0%;
+										height: 100%;
+										transition: width 0.3s ease,
+											background 0.3s ease;
+									"
+								></div>
+							</div>
+						</div>
+
+						<!-- Password Entropy Strength Analysis -->
+						<div class="strength-analysis">
+							<div class="strength-text">
+								<p class="mb-1 fw-bold">
+									Password Entropy Level
+									<button
+										class="btn btn-link modal-btn text-muted p-0 m-0"
+										data-title="Password Entropy"
+										data-content="meow"
+									>
+										<i class="bi bi-info-circle-fill"></i>
+									</button>
+									:
+									<span id="passwordStrengthLevelText"></span>
+								</p>
+							</div>
+
+							<div class="strength-meter mb-3">
+								<div
+									class="progress-bar"
+									id="shannonStrengthBar"
+									role="progressbar"
+									style="
+										width: 0%;
+										height: 100%;
+										transition: width 0.3s ease,
+											background 0.3s ease;
+									"
+								></div>
+							</div>
+						</div>
+
+						<!-- Sequence Alignment Strength Analysis -->
+						<div class="strength-analysis">
+							<div class="strength-text">
+								<p class="mb-1 fw-bold">
+									Sequence Alignment Level
+									<button
+										class="btn btn-link modal-btn text-muted p-0 m-0"
+										data-title="Sequence Alignment"
+										data-content="meow"
+									>
+										<i class="bi bi-info-circle-fill"></i>
+									</button>
+									:
+									<span
+										id="sequenceAlignmentStrengthLevelText"
+									></span>
 								</p>
 							</div>
 
@@ -74,7 +177,7 @@
 							<div class="strength-text">
 								<p class="mb-1 fw-bold">
 									Your password is:
-									<span id="strengthLevelText"></span>
+									<span id="overallStrengthLevelText"></span>
 								</p>
 							</div>
 
@@ -98,6 +201,7 @@
 		</div>
 
 		<!-- Local Script -->
+		<script src="passwordEntropy.js"></script>
 		<script src="script.js"></script>
 		<!-- Bootstrap Script -->
 		<script
