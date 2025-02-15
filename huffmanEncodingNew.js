@@ -31,6 +31,9 @@ function returnEncoding(node, curstring, target) {
 }
 
 function encodePw(pw) {
+	if (!pw) {
+		return 0;
+	}
 	let hammingcode = 0;
 	for (let ch of pw) {
 		let encoding = returnEncoding(root, "", ch);
@@ -38,7 +41,7 @@ function encodePw(pw) {
 			hammingcode += encoding.length;
 		}
 	}
-
+	
 	return Math.min(100, 100*(hammingcode/(8*pw.length)));
 }
 
