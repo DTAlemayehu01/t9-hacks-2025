@@ -85,7 +85,7 @@ function analyzePassword(password) {
 	scores = {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
-		sequenceAlignmentScore: actualUsage(password, 2000),
+		sequenceAlignmentScore: actualUsage(password),
 		huffmanEncodingScore: encodePw(password),
 	};
 

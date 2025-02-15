@@ -5153,7 +5153,7 @@ function exampleUsage() {
 	console.log(`Detailed Steps: ${bestDetailedOps}`);
 }
 
-function actualUsage(password, numPassInDatabase) {
+function actualUsage(password) {
 	// Split the file into lines and take the first numPassInDatabase
 	if (!password) {
 		return 0;
