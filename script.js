@@ -161,7 +161,7 @@ function getBarColor(score) {
 }
 
 function getStrengthLevel(score) {
-	if (score == 0) return "";
+	if (score === 0) return "";
 	if (score < 20) return "Vulnerable";
 	if (score < 40) return "Weak";
 	if (score < 60) return "Moderate";
