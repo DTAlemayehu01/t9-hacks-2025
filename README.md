@@ -8,7 +8,7 @@
 <h3 align="center">Jerry Meter</h3>
 
   <p align="center">
-    project_description
+    An educational password strength application that aggregates multiple metrics to make more accurate strength scoring and give more personalized suggestions on how to improve it.
     <br />
     <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025"><strong>Explore the repo »</strong></a>
     <br />
