@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function analyzePassword(password) {
-	seqAl = actualUsage(password)[0];
+	seqAl = actualUsage(password);
 	scores = {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
