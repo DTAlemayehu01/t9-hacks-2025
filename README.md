@@ -13,7 +13,7 @@
     <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025"><strong>Explore the repo »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025\Documentation.pdf">View Documentation</a>
+    <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025/blob/main/Documentation.pdf">View Documentation</a>
   </p>
 </div>
 
