@@ -1,8 +1,10 @@
 :root {
 	--primary: #2a85ff;
-	--success: #83bf6e;
-	--warning: #ffd166;
-	--danger: #ff6a55;
+	--veryStrong: #83bf6e;
+	--strong: #a9e757;
+	--moderate: #ffe471;
+	--weak: #ffaf67;
+	--vulnerable: #ff6a55;
 }
 
 body {

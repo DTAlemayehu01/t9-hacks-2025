@@ -12,6 +12,10 @@
 			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 			crossorigin="anonymous"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+		/>
 		<!-- Google Inter Font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,18 +41,56 @@
 							/>
 						</div>
 
-						<div class="strength-meter">
-							<div
-								class="progress-bar"
-								id="strengthBar"
-								role="progressbar"
-								style="
-									width: 0%;
-									height: 100%;
-									transition: width 0.3s ease,
-										background 0.3s ease;
-								"
-							></div>
+						<!-- Shannon Entropy Strength Analysis -->
+						<div class="strength-analysis">
+							<div class="strength-text">
+								<p class="mb-1 fw-bold">
+									Shannon Entropy Level
+									<button class="btn">
+										<i class="bi bi-info-circle-fill"></i>
+									</button>
+									:
+									<span id="shannonStrengthLevelText"></span>
+								</p>
+							</div>
+
+							<div class="strength-meter mb-3">
+								<div
+									class="progress-bar"
+									id="shannonStrengthBar"
+									role="progressbar"
+									style="
+										width: 0%;
+										height: 100%;
+										transition: width 0.3s ease,
+											background 0.3s ease;
+									"
+								></div>
+							</div>
+						</div>
+
+						<!-- Overall Strength Analysis -->
+						<div class="strength-analysis">
+							<div class="strength-text">
+								<p class="mb-1 fw-bold">
+									Your password is:
+									<span id="strengthLevelText"></span>
+								</p>
+							</div>
+
+							<div class="strength-meter">
+								<div
+									class="progress-bar"
+									id="overallStrengthBar"
+									role="overallprogressbar"
+									style="
+										width: 0%;
+										height: 100%;
+										transition: width 0.3s ease,
+											background 0.3s ease;
+									"
+								></div>
+							</div>
 						</div>
 					</div>
 				</div>
