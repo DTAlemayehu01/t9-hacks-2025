@@ -145,8 +145,24 @@ function updateUI(analysis) {
 	// Update Overall Strength Bar
 	let overallScore = 1;
 	for (const [scoreName, score] of Object.entries(analysis))
-		overallScore *= (score);
-	overallScore = overallScore**(1/4);
+		if(scoreName =="shannonEntropyScore")
+		{
+			overallScore *= (score);
+		}
+		else if(scoreName == "passwordEntropyScore")
+		{
+			overallScore *= (score)**5;
+		}
+		else if(scoreName == "sequenceAlignmentScore")
+		{
+			overallScore *= (score);
+		}
+		else
+		{
+			overallScore *= (score);
+		}
+		
+	overallScore = overallScore**(1/8);
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
