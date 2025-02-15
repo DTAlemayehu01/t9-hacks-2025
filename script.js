@@ -1,17 +1,24 @@
 const passwordInput = document.getElementById("passwordInput");
 const strengthBar = document.getElementById("strengthBar");
+const strengthLevelText = document.getElementById("strengthLevelText");
 const primaryColor = window
 	.getComputedStyle(document.body)
 	.getPropertyValue("--primary");
-const successColor = window
+const veryStrongColor = window
 	.getComputedStyle(document.body)
-	.getPropertyValue("--success");
-const warningColor = window
+	.getPropertyValue("--veryStrong");
+const strongColor = window
 	.getComputedStyle(document.body)
-	.getPropertyValue("--warning");
-const dangerColor = window
+	.getPropertyValue("--strong");
+const moderateColor = window
 	.getComputedStyle(document.body)
-	.getPropertyValue("--danger");
+	.getPropertyValue("--moderate");
+const weakColor = window
+	.getComputedStyle(document.body)
+	.getPropertyValue("--weak");
+const vulnerableColor = window
+	.getComputedStyle(document.body)
+	.getPropertyValue("--vulnerable");
 
 passwordInput.addEventListener("input", function (e) {
 	const password = e.target.value;
@@ -25,14 +32,26 @@ function analyzePassword(password) {
 }
 
 function updateUI(analysis) {
-	console.log(strengthBar);
 	// Update strength bar details
+	strengthLevelText.innerHTML = getStrengthLevel(analysis.score);
+	strengthLevelText.style.color = getBarColor(analysis.score);
 	strengthBar.style.width = `${analysis.score}%`;
 	strengthBar.style.backgroundColor = getBarColor(analysis.score);
 }
 
 function getBarColor(score) {
-	if (score < 33) return dangerColor;
-	if (score < 67) return warningColor;
-	return successColor;
+	if (score < 20) return vulnerableColor;
+	if (score < 40) return weakColor;
+	if (score < 60) return moderateColor;
+	if (score < 80) return strongColor;
+	return veryStrongColor;
+}
+
+function getStrengthLevel(score) {
+	if (score == 0) return "";
+	if (score < 20) return "Vulnerable";
+	if (score < 40) return "Weak";
+	if (score < 60) return "Moderate";
+	if (score < 80) return "Strong";
+	return "Very Strong";
 }
