@@ -4,7 +4,9 @@
   
 <h3 align="center">Jerrimeter</h3>
 
+    <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025">
     <img src="Screenshot.png" alt="Logo" width="800" height="800">
+  </a>
 
 
   <p align="center">
