@@ -63,9 +63,45 @@ Thus we have that $S(pq) - S(p) = S(q)$ or that $S(pq) =S(p)+S(q)$.
 
 From the axioms, we can prove that
 \[
-S(p) = -C\log p
+S(p) = -C\log_2 p
 \]
-where $C\in \mathbb{Z} > 0$
+where $C > 0$.
+From Axiom 4, we have that 
+\[
+S(p^2)=S(p)+S(p)+2S(p)
+\]
+From induction, we also have that for $m\in \mathbb{Z} > 0$
+\begin{equation} \label{inducResult}
+    S(p^m)=mS(p)
+\end{equation}
+
+Also note that for $n\in \mathbb{Z} > 0$
+\[
+S(p) = S\left((p^\frac{1}{n})^n\right) = nS(p^\frac{1}{n})
+\]
+which implies that
+\begin{equation} \label{inverseRes}
+    S(p^\frac{1}{n}) = \frac{S(p)}{n}
+\end{equation}
+
+Combining equations \ref{inducResult} and \ref{inverseRes}, we can define
+\begin{equation} \label{rationalEq}
+    S(p^x)=xS(p)
+\end{equation}
+for $x \in \mathbb{Q} >0$. Now from Axiom 3, we can define equation \ref{rationalEq} $\forall x \in\mathbb{Q} >0$.
+
+Now let us take $x=-\log_2 p$ which implies $p=\left(\frac{1}{2}\right)^x$ which allows for the following relation.
+\[
+S(p) = S\left((\frac{1}{2})^x\right) = xS\left(\frac{1}{2}\right) = -S\left(\frac{1}{2}\right)\cdot\log_2 p
+\]
+Now notice $S\left(\frac{1}{2}\right) = C$ is simply a constant (that is non-zero thanks to Axiom 1 and Axiom 2).
+
+Thus we have shown that
+\begin{equation}
+    S(p) = -C\log_2 p
+\end{equation}
+follows from the axioms.
+Lastly, note that it is standard to let $C=1$.
 
 \newpage
 \begin{thebibliography}{00}
