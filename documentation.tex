@@ -108,10 +108,24 @@ Lastly, note that it is standard to let $C=1$.
 
 \section{Mathematical Metrics}
 \subsection{Shannon Entropy Metric}
+Now we aim to quantify the expected amount of surprise incurred by a random variable $X$. Since $\log_2 p_i$ is the value of the surprise invoked when an event (let's say $E_i$) with probability $p_i$ occurs, the expected value of $S(p_i)$ for any outcome of $E_i$ is $p_i \cdot \log_2p_i$.
+Now summing over all expectations, we have the expected surprise of a random variable $X$ which takes on $n$ values with probability $p_1,p_2,...p_n$ is
+\[
+H(x) = \sum_{i=1}^n p_i\log_2p_i
+\]
 
 \subsubsection{Shannon Entropy Ratio}
+It can be proven using Lagrange Multipliers that the distribution that maximizes entropy such that .
+Thus we will take a score 
+\[
+R = \frac{H(x, n)}{H_{\text{max}}(n)}
+\]
 
 \subsection{Password Entropy Metric}
+Password Entropy is defined as 
+\[
+
+\]
 
 \newpage
 \begin{thebibliography}{00}
