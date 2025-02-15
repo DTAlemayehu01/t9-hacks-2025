@@ -85,14 +85,15 @@ function analyzePassword(password) {
 	scores = {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
-		sequenceAlignmentScore: 0, // To-Do
-		huffmanEncodingScore: 0, // To-Do
+		sequenceAlignmentScore: actualUsage(password, 2000),
+		huffmanEncodingScore: encodePw(password), // To-Do
 	};
 
 	return scores;
 }
 
 function updateUI(analysis) {
+	console.log(analysis.huffmanEncodingScore);
 	// Update Shannon Entropy Strength Bar
 	shannonEntropyStrengthLevelText.innerHTML = getStrengthLevel(
 		analysis.shannonEntropyScore
@@ -122,7 +123,7 @@ function updateUI(analysis) {
 		analysis.sequenceAlignmentScore
 	);
 	sequenceAlignmentStrengthLevelText.style.color = getBarColor(
-		analysis.shannonEntropyScore
+		analysis.sequenceAlignmentScore
 	);
 	sequenceAlignmentStrengthBar.style.width = `${analysis.sequenceAlignmentScore}%`;
 	sequenceAlignmentStrengthBar.style.backgroundColor = getBarColor(
@@ -150,6 +151,61 @@ function updateUI(analysis) {
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
 	overallStrengthBar.style.backgroundColor = getBarColor(overallScore);
+
+	updateSuggestions(analysis);
+}
+
+function getSuggestions(analysis) {
+	const suggestions = [];
+
+	if (analysis.shannonEntropyScore < 60) {
+		suggestions.push("❌ Consider using a more diverse set of characters.");
+	}
+
+	if (analysis.passwordEntropyScore < 60) {
+		suggestions.push("❌ Consider using a longer password.");
+	}
+
+	if (analysis.sequenceAlignmentScore < 60) {
+		suggestions.push(
+			"❌ This password is similar to one that has been broken before."
+		);
+	}
+
+	if (analysis.huffmanEncodingScore < 60) {
+		suggestions.push(
+			"❌ Consider using more rarely-used characters (e.g. '*', '%', etc.)."
+		);
+	}
+
+	return suggestions;
+}
+
+function updateSuggestions(analysis) {
+	const suggestionBox = document.getElementById("suggestionBox");
+	const suggestionList = document.getElementById("suggestionList");
+	const suggestions = getSuggestions(analysis);
+
+	suggestionList.innerHTML = "";
+
+	if (suggestions.length > 0) {
+		suggestions.forEach((suggestion, index) => {
+			const li = document.createElement("li");
+			li.className = "suggestion-item";
+
+			const hue = (index * 10) % 360;
+			li.style.backgroundColor = `hsla(${hue}, 70%, 90%, 0.9)`;
+			li.style.borderLeftColor = `hsl(${hue}, 70%, 50%)`;
+			li.style.setProperty("--text-color", `hsl(${hue}, 70%, 30%)`);
+
+			li.textContent = suggestion;
+			suggestionList.appendChild(li);
+		});
+
+		suggestionBox.classList.remove("hidden");
+	} else {
+		suggestionBox.classList.add("hidden");
+	}
 }
 
 function getBarColor(score) {
