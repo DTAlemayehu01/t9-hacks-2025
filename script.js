@@ -34,6 +34,9 @@ const overallStrengthLevelText = document.getElementById(
 );
 const infoModalOverlay = document.getElementById("infoModalOverlay");
 
+
+// Modals Consts
+
 const primaryColor = window
 	.getComputedStyle(document.body)
 	.getPropertyValue("--primary");
@@ -59,6 +62,14 @@ passwordInput.addEventListener("input", (e) => {
 	updateUI(analysis);
 });
 
+const modal_content = 
+	[
+		"Measures the 'uniqueness' of the password via the Shannon Entropy metric. Given a string of length n there is some maximal Shannon Entropy score it can have. However a string can reduce it's Shannon Entropy by repeating characters in it's sequence. This metric penalizes passwords that repeat characters. Fun fact, the amount of guesses required to guess a password given a Shannon Entropy is given by 2^H where H is the Shannon Entropy. However, it's important to note that this guess assumes a rudimentary attack methodology.", 
+		"Given the pool of characters (ASCII) this score is calculated by how many Lowercase, Uppercase, Numbers, and Special characters are used. This score defaults to being minimized and increases as the length and as all 4 types of characters are fully utilized. Eventually, a long enough password will pass this metric even if it's merely a sequence of a single character which makes this metric generally unreliable. However, this metric sees common use in most signup password scorers." ,
+		"Based on, UK's NCSC stats on most common passwords (i.e. 'password', 'qwerty'). Being more similar to these passwords decreases the score. Similarity to a string is defined as how many string operations (i.e. character inserts, deletes, swaps, etc.) are necessary to transform one string into another.",
+		"Measures character rarity via a Huffman Encode of the UK's NCSC's stats on most common passowrds. Sums each characters 'rarity' based on the Huffman Encoding of the respective character. Characters that are more commonly used result in a lower Character Rarity score. Huffman Encoding is an ecoding algorithm that assigns common (shorter) binary sequences to more common characters. Consequently, we can evaluate the Huffman binary sequence as a number instead of string to assign a 'rarity score' to the respective character where a greater number implies a higher rarity."
+	];
+
 // Load modal upon DOM setup
 document.addEventListener("DOMContentLoaded", () => {
 	const modal = new bootstrap.Modal(document.getElementById("dynamicModal"));
@@ -69,6 +80,20 @@ document.addEventListener("DOMContentLoaded", () => {
 		button.addEventListener("click", () => {
 			// Get data attributes
 			const title = button.dataset.title;
+			switch(title) {
+				case "Character Rarity (Huffman Encoding)":
+					const content = modal_content[3];
+					break;
+				case "Commonality with Broken Passwords (Sequence Alignment)":
+					const content = modal_content[2];
+					break;
+				case "Length and Variety (Password Entropy)":
+					const content = modal_content[1];
+					break;
+				case "Character Uniqueness (Shannon Entropy)":
+					const content = modal_content[0];
+					break;
+			}
 			const content = button.dataset.content;
 
 			// Update modal content
