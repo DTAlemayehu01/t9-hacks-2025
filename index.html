@@ -82,7 +82,7 @@
 									<button
 										class="btn btn-link modal-btn text-muted p-0 m-0"
 										data-title="Character Uniqueness (Shannon Entropy)"
-										data-content="meow"
+										data-content="Measures the 'uniqueness' of the password via the Shannon Entrophy metric. Given a string of length n there is some maximal Shannon Entrophy score it can have. Howeer a string can reduce it's Shannon Entrophy by repeating characters in it's sequence. This metric penalizes passwords that repeat characters. Fun fact, the amount of guesses required to guess a password given a Shannon Entrophy is given by 2^H where H is the Shannon Entrophy. However, it's important to note that this guess assumes a ruidmentary attack methodology."
 									>
 										<i class="bi bi-info-circle-fill"></i>
 									</button>
@@ -116,7 +116,7 @@
 									<button
 										class="btn btn-link modal-btn text-muted p-0 m-0"
 										data-title="Length and Variety (Password Entropy)"
-										data-content="meow"
+										data-content="Given the pool of characters (ASCII) this score is calculated by how many Lowercase, Uppercase, Numbers, and Special characters are used. This score defaults to being minimized and increases as the length and as all 4 types of characters are fully utilized. Eventually, a long enough password will pass this metric even if it's merely a sequence of a single character which makes this metric generally unreliable. However, this metric sees common use in most signup password scorers." 
 									>
 										<i class="bi bi-info-circle-fill"></i>
 									</button>
@@ -150,7 +150,7 @@
 									<button
 										class="btn btn-link modal-btn text-muted p-0 m-0"
 										data-title="Commonality with Broken Passwords (Sequence Alignment)"
-										data-content="meow"
+										data-content="Based on, UK's NCSC stats on most common passwords (i.e. 'password', 'qwerty'). Being more similar to these passwords decreases the score. Similarity to a string is defined as how many string operations (i.e. character inserts, deletes, swaps, etc.) are necessary to transform one string into another."
 									>
 										<i class="bi bi-info-circle-fill"></i>
 									</button>
@@ -184,7 +184,7 @@
 									<button
 										class="btn btn-link modal-btn text-muted p-0 m-0"
 										data-title="Character Rarity (Huffman Encoding)"
-										data-content="meow"
+										data-content="Measures character rarity via a Huffman Encode of the UK's NCSC's stats on most common passowrds. Sums each characters 'rarity' based on the Huffman Encoding of the respective character. Characters that are more commonly used result in a lower Character Rarity score. Huffman Encoding is an ecoding algorithm that assigns common (shorter) binary sequences to more common characters. Consequently, we can evaluate the Huffman binary sequence as a number instead of string to assign a 'rarity score' to the respective character where a greater number implies a higher rarity."
 									>
 										<i class="bi bi-info-circle-fill"></i>
 									</button>
