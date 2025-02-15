@@ -113,6 +113,10 @@ function bestMatch(query, database) {
 			bestOperations = operations;
 			bestDetailedOps = detailedOps;
 			bestPercentMatch = percentMatch;
+      if(bestScore == 0)
+      {
+        break
+      }
 		}
 	}
 
