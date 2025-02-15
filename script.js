@@ -158,24 +158,35 @@ function updateUI(analysis) {
 function getSuggestions(analysis) {
 	const suggestions = [];
 
-	if (analysis.shannonEntropyScore < 60) {
-		suggestions.push("❌ Consider using a more diverse set of characters.");
-	}
+	console.log(analysis);
 
-	if (analysis.passwordEntropyScore < 60) {
-		suggestions.push("❌ Consider using a longer password.");
-	}
+	if (
+		analysis.shannonEntropyScore != 0 ||
+		analysis.passwordEntropyScore != 0 ||
+		analysis.sequenceAlignmentScore != 0 ||
+		analysis.huffmanEncodingScore != 0
+	) {
+		if (analysis.shannonEntropyScore < 60) {
+			suggestions.push(
+				"❌ Consider using a more diverse set of characters."
+			);
+		}
 
-	if (analysis.sequenceAlignmentScore < 60) {
-		suggestions.push(
-			"❌ This password is similar to one that has been broken before."
-		);
-	}
+		if (analysis.passwordEntropyScore < 60) {
+			suggestions.push("❌ Consider using a longer password.");
+		}
 
-	if (analysis.huffmanEncodingScore < 60) {
-		suggestions.push(
-			"❌ Consider using more rarely-used characters (e.g. '*', '%', etc.)."
-		);
+		if (analysis.sequenceAlignmentScore < 60) {
+			suggestions.push(
+				"❌ This password is similar to one that has been broken before."
+			);
+		}
+
+		if (analysis.huffmanEncodingScore < 60) {
+			suggestions.push(
+				"❌ Consider using more rarely-used characters (e.g. '*', '%', etc.)."
+			);
+		}
 	}
 
 	return suggestions;
