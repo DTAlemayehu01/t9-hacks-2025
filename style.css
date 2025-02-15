@@ -50,6 +50,39 @@ body {
 	box-shadow: 0 0 0 3px rgba(42, 133, 255, 0.15);
 }
 
+.suggestion-box {
+	background-color: #d7dce4;
+	border-radius: 8px;
+	padding: 1.5rem;
+	margin-top: 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.suggestion-box.hidden {
+	opacity: 0;
+	max-height: 0;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+
+.suggestion-item {
+	padding: 0.75rem 1.25rem;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	transition: all 0.2s ease;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	color: var(--text-color, #2c3e50);
+	list-style: none;
+}
+
+.suggestion-item:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 @keyframes slideUp {
 	0% {
 		transform: translateY(-100%);
