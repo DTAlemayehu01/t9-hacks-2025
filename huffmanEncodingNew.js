@@ -42,7 +42,7 @@ function encodePw(pw) {
 		}
 	}
 	
-	return Math.min(100, 100*(hammingcode/(8*pw.length)));
+	return Math.min(100, 100*((hammingcode-4*pw.length)/(8*pw.length-4*pw.length)));
 }
 
 function getEncoding() {
