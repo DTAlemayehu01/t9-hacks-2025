@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{blindtext}
 \usepackage{titlesec}
-\title{Weekly Report}
+\title{Documentation}
 \author{Jerry Wang}
 \date{ }
 \usepackage{amsmath}
@@ -28,7 +28,9 @@
 \newpage
 \section{Introduction}
 \subsection{Entropy - Surprise Factor}
-First we would like to define the concept of the "surprise" of an event $E$ occurring. The following methods and definitions are based on Ross's A First Course in Probability \cite{b1}. Mathematically, it makes sense that the surprise invoked by an event $E$ occurring should be a function of the probability of event $E$ itself, which we will denote $p$.
+First we would like to define the concept of the "surprise" of an event $E$ occurring and define entropy based off that. We deem this important since entropy plays a large role in many of the metric developed and implemented. As such, it would be helpful to define a consistent mathematical framework as well as develop intuition for these definitions at a precise mathematical level. 
+
+The following methods and definitions are based on Ross's A First Course in Probability \cite{b1}. Mathematically, it makes sense that the surprise invoked by an event $E$ occurring should be a function of the probability of event $E$ itself, which we will denote $p$.
 Thus we define $S(p)$ as the surprise invoked by an event with a probability of $p$. 
 Now we will begin by stating some axioms for this definition of surprise.
 
@@ -102,6 +104,14 @@ Thus we have shown that
 \end{equation}
 follows from the axioms.
 Lastly, note that it is standard to let $C=1$.
+
+
+\section{Mathematical Metrics}
+\subsection{Shannon Entropy Metric}
+
+\subsubsection{Shannon Entropy Ratio}
+
+\subsection{Password Entropy Metric}
 
 \newpage
 \begin{thebibliography}{00}
