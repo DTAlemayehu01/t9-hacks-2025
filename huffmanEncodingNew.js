@@ -39,7 +39,7 @@ function encodePw(pw) {
 		}
 	}
 
-	return Math.min(100, hammingcode);
+	return Math.min(100, hammingcode/(8*pw.length));
 }
 
 function getEncoding() {
