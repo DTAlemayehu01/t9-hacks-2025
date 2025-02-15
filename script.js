@@ -1,4 +1,33 @@
 const passwordInput = document.getElementById("passwordInput");
+
+const shannonEntropyStrengthBar = document.getElementById(
+	"shannonEntropyStrengthBar"
+);
+const shannonEntropyStrengthLevelText = document.getElementById(
+	"shannonEntropyStrengthLevelText"
+);
+
+const passwordEntropyStrengthBar = document.getElementById(
+	"passwordEntropyStrengthBar"
+);
+const passwordEntropyStrengthLevelText = document.getElementById(
+	"passwordEntropyStrengthLevelText"
+);
+
+const sequenceAlignmentStrengthBar = document.getElementById(
+	"sequenceAlignmentStrengthBar"
+);
+const sequenceAlignmentStrengthLevelText = document.getElementById(
+	"sequenceAlignmentStrengthLevelText"
+);
+
+const huffmanEncodingStrengthBar = document.getElementById(
+	"huffmanEncodingStrengthBar"
+);
+const huffmanEncodingStrengthLevelText = document.getElementById(
+	"huffmanEncodingStrengthLevelText"
+);
+
 const overallStrengthBar = document.getElementById("overallStrengthBar");
 const overallStrengthLevelText = document.getElementById(
 	"overallStrengthLevelText"
@@ -30,16 +59,7 @@ passwordInput.addEventListener("input", (e) => {
 	updateUI(analysis);
 });
 
-// Close model on ESC key
-document.addEventListener("keydown", (e) => {
-	if (
-		e.key === "Escape" &&
-		document.body.classList.contains("modal-active")
-	) {
-		toggleInfoModal();
-	}
-});
-
+// Load modal upon DOM setup
 document.addEventListener("DOMContentLoaded", () => {
 	const modal = new bootstrap.Modal(document.getElementById("dynamicModal"));
 	const modalTitle = document.getElementById("dynamicModalLabel");
@@ -62,16 +82,74 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function analyzePassword(password) {
-	// Implement password rating algorithm here
-	return { score: password.length * 10 };
+	scores = {
+		shannonEntropyScore: shannonRatio(password),
+		passwordEntropyScore: passwordEntropy(password),
+		sequenceAlignmentScore: 0, // To-Do
+		huffmanEncodingScore: 0, // To-Do
+	};
+
+	return scores;
 }
 
 function updateUI(analysis) {
-	// Update strength bar details
-	overallStrengthLevelText.innerHTML = getStrengthLevel(analysis.score);
-	overallStrengthLevelText.style.color = getBarColor(analysis.score);
-	overallStrengthBar.style.width = `${analysis.score}%`;
-	overallStrengthBar.style.backgroundColor = getBarColor(analysis.score);
+	// Update Shannon Entropy Strength Bar
+	shannonEntropyStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.shannonEntropyScore
+	);
+	shannonEntropyStrengthLevelText.style.color = getBarColor(
+		analysis.shannonEntropyScore
+	);
+	shannonEntropyStrengthBar.style.width = `${analysis.shannonEntropyScore}%`;
+	shannonEntropyStrengthBar.style.backgroundColor = getBarColor(
+		analysis.shannonEntropyScore
+	);
+
+	// Update Password Entropy Strength Bar
+	passwordEntropyStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.passwordEntropyScore
+	);
+	passwordEntropyStrengthLevelText.style.color = getBarColor(
+		analysis.passwordEntropyScore
+	);
+	passwordEntropyStrengthBar.style.width = `${analysis.passwordEntropyScore}%`;
+	passwordEntropyStrengthBar.style.backgroundColor = getBarColor(
+		analysis.passwordEntropyScore
+	);
+
+	// Update Sequence Alignment Strength Bar
+	sequenceAlignmentStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.sequenceAlignmentScore
+	);
+	sequenceAlignmentStrengthLevelText.style.color = getBarColor(
+		analysis.shannonEntropyScore
+	);
+	sequenceAlignmentStrengthBar.style.width = `${analysis.sequenceAlignmentScore}%`;
+	sequenceAlignmentStrengthBar.style.backgroundColor = getBarColor(
+		analysis.sequenceAlignmentScore
+	);
+
+	// Update Huffman Encoding Strength Bar
+	huffmanEncodingStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.huffmanEncodingScore
+	);
+	huffmanEncodingStrengthLevelText.style.color = getBarColor(
+		analysis.huffmanEncodingScore
+	);
+	huffmanEncodingStrengthBar.style.width = `${analysis.huffmanEncodingScore}%`;
+	huffmanEncodingStrengthBar.style.backgroundColor = getBarColor(
+		analysis.huffmanEncodingScore
+	);
+
+	// Update Overall Strength Bar
+	let overallScore = 0;
+	for (const [scoreName, score] of Object.entries(analysis))
+		overallScore += score;
+	overallScore /= 4;
+	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
+	overallStrengthLevelText.style.color = getBarColor(overallScore);
+	overallStrengthBar.style.width = `${overallScore}%`;
+	overallStrengthBar.style.backgroundColor = getBarColor(overallScore);
 }
 
 function getBarColor(score) {
@@ -89,15 +167,4 @@ function getStrengthLevel(score) {
 	if (score < 60) return "Moderate";
 	if (score < 80) return "Strong";
 	return "Very Strong";
-}
-
-function toggleInfoModal(modalID) {
-	const modal = document.getElementById(modalID);
-	modal.classList.toggle("modal-active");
-	toggleInfoModalOverlay();
-	document.getElementById("passwordInput").blur(); // Remove focus from password field
-}
-
-function toggleInfoModalOverlay() {
-	infom.classList.toggle("modal-active");
 }
