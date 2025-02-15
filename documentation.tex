@@ -5,6 +5,7 @@
 \author{Jerry Wang}
 \date{ }
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{geometry}
@@ -45,6 +46,26 @@ That is, $S(p)$ is a strictly decreasing function of $p$.
 \[
 S(p) \text{ is a continuous function with respect to $p$}
 \]
+
+\textbf{Axiom 4}
+\[
+S(pq) =S(p)+S(q)
+\]
+The intuition of this axiom is given when we consider independent events $E_1$ and $E_2$ with probabilities of occurring with $p$ and $q$ respectively. 
+Since $E_1$ and $E_2$ are independent, $P(E_1 \cap E_2) = P(E_1)\cdot P(E_2) = pq$. 
+Thus the surprise invoked by $E_1 \cap E_2$ should be defined as $S(pq)$. 
+But now, let us consider that we are first told that event $E_1$ occurred, and then afterwards event $E_2$ occur. 
+We know the total surprise invoked is simply the surprised invoked by $E_1 \cap E_2$ which is $S(pq)$, and since we know that $S(p)$ is the surprise invoked by event $E_1$ alone, it follows that $S(pq) - S(p)$ should represent the initial surprise invoked by $E_2$. 
+Due to independence, we know the probability of $E_2$ is still $q$ and thus the surprise of event $E_2$ should remain $S(q)$. 
+Thus we have that $S(pq) - S(p) = S(q)$ or that $S(pq) =S(p)+S(q)$. 
+
+\bigskip
+
+From the axioms, we can prove that
+\[
+S(p) = -C\log p
+\]
+where $C\in \mathbb{Z} > 0$
 
 \newpage
 \begin{thebibliography}{00}
