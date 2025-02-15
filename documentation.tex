@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{blindtext}
+\usepackage{titlesec}
+\title{Weekly Report}
+\author{Jerry Wang}
+\date{ }
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+
+
+\usepackage{color}  
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,% hyperlinks will be black
+    pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{Entropy - Surprise Factor}
+First we would like to define the concept of the "surprise" of an event $E$ occurring. The following methods and definitions are based on Ross's A First Course in Probability \cite{b1}. Mathematically, it makes sense that the surprise invoked by an event $E$ occurring should be a function of the probability of event $E$ itself, which we will denote $p$.
+Thus we define $S(p)$ as the surprise invoked by an event with a probability of $p$. 
+Now we will begin by stating some axioms for this definition of surprise.
+
+\textbf{Axiom 1}
+\[S(1) = 0\]
+Intuitively, that just means we should feel no surprise when a event with probability $1$ occurs. That is, it is not surprising at all for a sure event to occur.
+
+\textbf{Axiom 2}
+\[
+p<q \implies S(p)<S(q)
+\]
+That is, $S(p)$ is a strictly decreasing function of $p$.
+
+\textbf{Axiom 3}
+\[
+S(p) \text{ is a continuous function with respect to $p$}
+\]
+
+\newpage
+\begin{thebibliography}{00}
+\bibitem{b1} Ross, Sheldon M. 2019. A First Course in Probability. 10th ed. Pearson.
+\end{thebibliography}
+
+\end{document}
