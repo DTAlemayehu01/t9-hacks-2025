@@ -86,7 +86,7 @@ function analyzePassword(password) {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
 		sequenceAlignmentScore: actualUsage(password, 2000),
-		huffmanEncodingScore: encodePw(password), // To-Do
+		huffmanEncodingScore: encodePw(password),
 	};
 
 	return scores;
@@ -191,7 +191,7 @@ function updateSuggestions(analysis) {
 	if (suggestions.length > 0) {
 		suggestions.forEach((suggestion, index) => {
 			const li = document.createElement("li");
-			li.className = "suggestion-item";
+			li.className = "suggestion-item my-2";
 
 			const hue = (index * 10) % 360;
 			li.style.backgroundColor = `hsla(${hue}, 70%, 90%, 0.9)`;
