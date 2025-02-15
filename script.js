@@ -34,9 +34,6 @@ const overallStrengthLevelText = document.getElementById(
 );
 const infoModalOverlay = document.getElementById("infoModalOverlay");
 
-
-// Modals Consts
-
 const primaryColor = window
 	.getComputedStyle(document.body)
 	.getPropertyValue("--primary");
@@ -62,7 +59,8 @@ passwordInput.addEventListener("input", (e) => {
 	updateUI(analysis);
 });
 
-const modal_content = 
+// Modals Consts
+let modal_content = 
 	[
 		"Measures the 'uniqueness' of the password via the Shannon Entropy metric. Given a string of length n there is some maximal Shannon Entropy score it can have. However a string can reduce it's Shannon Entropy by repeating characters in it's sequence. This metric penalizes passwords that repeat characters. Fun fact, the amount of guesses required to guess a password given a Shannon Entropy is given by 2^H where H is the Shannon Entropy. However, it's important to note that this guess assumes a rudimentary attack methodology.", 
 		"Given the pool of characters (ASCII) this score is calculated by how many Lowercase, Uppercase, Numbers, and Special characters are used. This score defaults to being minimized and increases as the length and as all 4 types of characters are fully utilized. Eventually, a long enough password will pass this metric even if it's merely a sequence of a single character which makes this metric generally unreliable. However, this metric sees common use in most signup password scorers." ,
@@ -107,10 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function analyzePassword(password) {
+	seqAl = actualUsage(password, 2000)[0];
 	scores = {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
-		sequenceAlignmentScore: actualUsage(password, 2000),
+		sequenceAlignmentScore: seqAl[0],
+		sequenceAlignmentPassword: seqAl[1],
 		huffmanEncodingScore: encodePw(password),
 	};
 
@@ -130,6 +130,7 @@ function updateUI(analysis) {
 	shannonEntropyStrengthBar.style.backgroundColor = getBarColor(
 		analysis.shannonEntropyScore
 	);
+	modal_content[0] = modal_content[0] + `Your Shannon Entropy Score: {analysis.shannonEntropyScore}`;
 
 	// Update Password Entropy Strength Bar
 	passwordEntropyStrengthLevelText.innerHTML = getStrengthLevel(
@@ -142,6 +143,7 @@ function updateUI(analysis) {
 	passwordEntropyStrengthBar.style.backgroundColor = getBarColor(
 		analysis.passwordEntropyScore
 	);
+	modal_content[1] = modal_content[1] + `Your Password Entropy Score: {analysis.passwordEntropyScore}`;
 
 	// Update Sequence Alignment Strength Bar
 	sequenceAlignmentStrengthLevelText.innerHTML = getStrengthLevel(
@@ -154,6 +156,7 @@ function updateUI(analysis) {
 	sequenceAlignmentStrengthBar.style.backgroundColor = getBarColor(
 		analysis.sequenceAlignmentScore
 	);
+	modal_content[2] = modal_content[2] + `Your Password Most Closely Matches: {analysis.sequenceAlignmentScore}`;
 
 	// Update Huffman Encoding Strength Bar
 	huffmanEncodingStrengthLevelText.innerHTML = getStrengthLevel(
@@ -166,6 +169,7 @@ function updateUI(analysis) {
 	huffmanEncodingStrengthBar.style.backgroundColor = getBarColor(
 		analysis.huffmanEncodingScore
 	);
+	modal_content[3] = modal_content[3] + `Your Character Rarity Score: {analysis.huffmanEncodingScore}`;
 
 	// Update Overall Strength Bar
 	let overallScore = 1;

@@ -2170,5 +2170,5 @@ function actualUsage(password, numPassInDatabase) {
 		bestPercentMatch,
 	] = bestMatch(password, database);
 
-	return 100 - bestPercentMatch + 0.1;
+	return [100 - bestPercentMatch + 0.1, bestSeq];
 }
