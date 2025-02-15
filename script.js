@@ -143,10 +143,10 @@ function updateUI(analysis) {
 	);
 
 	// Update Overall Strength Bar
-	let overallScore = 0;
+	let overallScore = 1;
 	for (const [scoreName, score] of Object.entries(analysis))
-		overallScore += score;
-	overallScore /= 4;
+		overallScore *= (score);
+	overallScore = overallScore**(1/4);
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
