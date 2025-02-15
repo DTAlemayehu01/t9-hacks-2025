@@ -2167,7 +2167,7 @@ function actualUsage(password, numPassInDatabase) {
 		bestOperations,
 		bestDetailedOps,
 		bestPercentMatch,
-	] = bestMatch(password, database.slice(0, numPassInDatabase));
+	] = bestMatch(password, database);
 
 	return 100 - bestPercentMatch + 0.1;
 }
