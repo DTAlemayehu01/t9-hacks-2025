@@ -20,15 +20,17 @@ function shannonEntropy(password) {
 }
 
 function maxShannonEntropyofLengthN(n) {
-	let p = 1 / n; // uniform distribution for each character
+    let p = 1 / n; // uniform distribution for each character
 	let entropyPerChar = -p * Math.log2(p);
 	return n * entropyPerChar;
 }
 
 function shannonRatio(password) {
+    if (!password) return 0;
+    if(password.length == 1) return 1;
 	let entropy = shannonEntropy(password);
 	let theoreticalEntropy = maxShannonEntropyofLengthN(password.length);
 
 	let effectiveRatio = entropy / theoreticalEntropy;
-	return effectiveRatio;
+	return 100*effectiveRatio;
 }
