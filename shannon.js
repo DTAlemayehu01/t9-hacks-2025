@@ -22,7 +22,7 @@ function shannonEntropy(password) {
 function maxShannonEntropyofLengthN(n) {
 	let p = 1 / n; // uniform distribution for each character
 	let entropyPerChar = -p * Math.log2(p);
-	return length * entropyPerChar;
+	return n * entropyPerChar;
 }
 
 function shannonRatio(password) {
