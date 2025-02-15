@@ -7,7 +7,7 @@
 
 body {
 	font-family: "Inter", sans-serif;
-	background: #f8f9fa;
+	background: white;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
@@ -25,10 +25,8 @@ body {
 
 .strength-meter {
 	height: 8px;
+	border: thin solid gray;
 	border-radius: 4px;
-	border-style: solid;
-	border-width: thin;
-	border-color: gray;
 	overflow: hidden;
 	transition: all 0.3s ease;
 }
@@ -38,7 +36,7 @@ body {
 }
 
 .password-input {
-	border: 2px solid #e9ecef;
+	border: 2px solid white;
 	border-radius: 12px;
 	padding: 1rem 1.5rem;
 	font-size: 1.1rem;
