@@ -25,7 +25,7 @@ const huffmanEncodingStrengthBar = document.getElementById(
 	"huffmanEncodingStrengthBar"
 );
 const huffmanEncodingStrengthLevelText = document.getElementById(
-	"huffmandEncodingStrengthLevelText"
+	"huffmanEncodingStrengthLevelText"
 );
 
 const overallStrengthBar = document.getElementById("overallStrengthBar");
@@ -86,7 +86,7 @@ function analyzePassword(password) {
 		shannonEntropyScore: shannonRatio(password),
 		passwordEntropyScore: passwordEntropy(password),
 		sequenceAlignmentScore: 0, // To-Do
-		// huffmanEncodingScore: encodePw(password), // To-Do
+		huffmanEncodingScore: 0, // To-Do
 	};
 
 	return scores;
@@ -115,6 +115,30 @@ function updateUI(analysis) {
 	passwordEntropyStrengthBar.style.width = `${analysis.passwordEntropyScore}%`;
 	passwordEntropyStrengthBar.style.backgroundColor = getBarColor(
 		analysis.passwordEntropyScore
+	);
+
+	// Update Sequence Alignment Strength Bar
+	sequenceAlignmentStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.sequenceAlignmentScore
+	);
+	sequenceAlignmentStrengthLevelText.style.color = getBarColor(
+		analysis.shannonEntropyScore
+	);
+	sequenceAlignmentStrengthBar.style.width = `${analysis.sequenceAlignmentScore}%`;
+	sequenceAlignmentStrengthBar.style.backgroundColor = getBarColor(
+		analysis.sequenceAlignmentScore
+	);
+
+	// Update Huffman Encoding Strength Bar
+	huffmanEncodingStrengthLevelText.innerHTML = getStrengthLevel(
+		analysis.huffmanEncodingScore
+	);
+	huffmanEncodingStrengthLevelText.style.color = getBarColor(
+		analysis.huffmanEncodingScore
+	);
+	huffmanEncodingStrengthBar.style.width = `${analysis.huffmanEncodingScore}%`;
+	huffmanEncodingStrengthBar.style.backgroundColor = getBarColor(
+		analysis.huffmanEncodingScore
 	);
 
 	// Update Overall Strength Bar

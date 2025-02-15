@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 class Node {
     constructor(char, left = null, right = null) {
         this.char = char;
@@ -39,16 +37,13 @@ function encodePw(pw) {
     console.log(hammingcode);
 }
 
-fs.readFile("hamming codes.txt", "utf8", (err, data) => {
-    if (err) {
-        console.error("Error reading file:", err);
-        return;
-    }
-    
-    let unstructuredchars = data.split("\n").map(line => [line[0], line.slice(2).trim()]);
-    root = convRecurs(unstructuredchars, "");
-    
-    // Example password input
-    let password = "yourpasswordhere"; 
-    encodePw(password);
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("huffman codes.txt")
+        .then(response => response.text())
+        .then(data => {
+            let unstructuredchars = data.split("\n").map(line => [line[0], line.slice(2).trim()]);
+            root = convRecurs(unstructuredchars, "");
+
+        })
+        .catch(error => console.error("Error reading file:", error));
 });
