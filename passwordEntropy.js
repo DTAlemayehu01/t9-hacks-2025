@@ -30,5 +30,5 @@ function passwordEntropy(password) {
 	if (length === 0) return 0;
 
 	let poolSize = getPasswordCharSetSize(password);
-	return length * Math.log2(poolSize);
+	return Math.min(100, length * Math.log2(poolSize));
 }
