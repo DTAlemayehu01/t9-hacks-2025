@@ -68,7 +68,7 @@ const base_modal_content =
 		"Measures character rarity via a Huffman Encode of the UK's NCSC's stats on most common passowrds. Sums each characters 'rarity' based on the Huffman Encoding of the respective character. Characters that are more commonly used result in a lower Character Rarity score. Huffman Encoding is an ecoding algorithm that assigns common (shorter) binary sequences to more common characters. Consequently, we can evaluate the Huffman binary sequence as a number instead of string to assign a 'rarity score' to the respective character where a greater number implies a higher rarity."
 	];
 
-var global_scores;
+let modal_content = base_modal_content;
 
 // Load modal upon DOM setup
 document.addEventListener("DOMContentLoaded", () => {
@@ -80,26 +80,25 @@ document.addEventListener("DOMContentLoaded", () => {
 		button.addEventListener("click", () => {
 			// Get data attributes
 			const title = button.dataset.title;
-			//let content = ""
 			switch(title) {
 				case "Character Rarity (Huffman Encoding)":
-					modalBody.textContent = base_modal_content[3] + ` Your Character Rarity Score: ${global_scores.huffmanEncodingScore}`;
+					button.dataset.content = modal_content[3];
 					break;
 				case "Commonality with Broken Passwords (Sequence Alignment)":
-					modalBody.textContent = base_modal_content[2]  + ` Your Password Most Closely Matches: ${global_scores.sequenceAlignmentPassword} w/ a percent match of: ${global_scores.sequenceAlignmentPercent}`;
+					button.dataset.content = modal_content[2];
 					break;
 				case "Length and Variety (Password Entropy)":
-					modalBody.textContent = base_modal_content[1] + ` Your Password Entropy Score: ${global_scores.passwordEntropyScore}`; 
+					button.dataset.content = modal_content[1];
 					break;
 				case "Character Uniqueness (Shannon Entropy)":
-					modalBody.textContent = base_modal_content[0] + ` Your Shannon Entropy Score: ${global_scores.shannonEntropyScore}`;
+					button.dataset.content = modal_content[0];
 					break;
 			}
-			//const content = button.dataset.content;
+			const content = button.dataset.content;
 
 			// Update modal content
 			modalTitle.textContent = title;
-			//modalBody.textContent = content;
+			modalBody.textContent = content;
 
 			// Show modal
 			modal.show();
@@ -114,17 +113,13 @@ function analyzePassword(password) {
 		passwordEntropyScore: passwordEntropy(password),
 		sequenceAlignmentScore: seqAl[0],
 		sequenceAlignmentPassword: seqAl[1],
-		sequenceAlignmentPercent: seqAl[2],
 		huffmanEncodingScore: encodePw(password),
 	};
-	global_scores = scores;
 
 	return scores;
 }
 
 function updateUI(analysis) {
-	modal_content = base_modal_content;
-
 	console.log(analysis.huffmanEncodingScore);
 	// Update Shannon Entropy Strength Bar
 	shannonEntropyStrengthLevelText.innerHTML = getStrengthLevel(
@@ -137,6 +132,7 @@ function updateUI(analysis) {
 	shannonEntropyStrengthBar.style.backgroundColor = getBarColor(
 		analysis.shannonEntropyScore
 	);
+	modal_content[0] = base_modal_content[0] + `Your Shannon Entropy Score: {analysis.shannonEntropyScore}`;
 
 	// Update Password Entropy Strength Bar
 	passwordEntropyStrengthLevelText.innerHTML = getStrengthLevel(
@@ -149,6 +145,7 @@ function updateUI(analysis) {
 	passwordEntropyStrengthBar.style.backgroundColor = getBarColor(
 		analysis.passwordEntropyScore
 	);
+	modal_content[1] = base_modal_content[1] + `Your Password Entropy Score: {analysis.passwordEntropyScore}`;
 
 	// Update Sequence Alignment Strength Bar
 	sequenceAlignmentStrengthLevelText.innerHTML = getStrengthLevel(
@@ -161,6 +158,7 @@ function updateUI(analysis) {
 	sequenceAlignmentStrengthBar.style.backgroundColor = getBarColor(
 		analysis.sequenceAlignmentScore
 	);
+	modal_content[2] = base_modal_content[2] + `Your Password Most Closely Matches: {analysis.sequenceAlignmentScore}`;
 
 	// Update Huffman Encoding Strength Bar
 	huffmanEncodingStrengthLevelText.innerHTML = getStrengthLevel(
@@ -173,6 +171,7 @@ function updateUI(analysis) {
 	huffmanEncodingStrengthBar.style.backgroundColor = getBarColor(
 		analysis.huffmanEncodingScore
 	);
+	modal_content[3] = base_modal_content[3] + `Your Character Rarity Score: {analysis.huffmanEncodingScore}`;
 
 	// Update Overall Strength Bar
 	let overallScore = 1;
