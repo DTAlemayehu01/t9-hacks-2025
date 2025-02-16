@@ -5160,8 +5160,6 @@ function actualUsage(password) {
 		return [0, ""];
 	}
 
-	console.log(password);
-
 	const [
 		bestSeq,
 		bestScore,
