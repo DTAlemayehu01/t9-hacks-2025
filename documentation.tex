@@ -124,8 +124,12 @@ R = \frac{H(x, n)}{H_{\text{max}}(n)}
 \subsection{Password Entropy Metric}
 Password Entropy is defined as 
 \[
-
+E=\log_2(R^L) = L\log_2(R)
 \]
+where $R$ is the character pool and $L$ is the length of the password.
+This will be used to measure the total amount of possible passwords of the given length. Under the assumption that passwords are guessed randomly, the password entropy corresponds to the amount of total passwords that are possible.  
+
+
 
 \newpage
 \begin{thebibliography}{00}
