@@ -1,11 +1,13 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
+  
+
+
   <a href="https://github.com/MatthewStuckenbruck/t9-hacks-2025">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="Screenshot.png" alt="Logo" width="500">
   </a>
 
-<h3 align="center">Jerrimeter</h3>
 
   <p align="center">
     An educational password strength application that aggregates multiple metrics to make more accurate strength scoring and give more personalized suggestions on how to improve it.

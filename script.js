@@ -60,13 +60,12 @@ passwordInput.addEventListener("input", (e) => {
 });
 
 // Modals Consts
-const base_modal_content = 
-	[
-		"Measures the 'uniqueness' of the password via the Shannon Entropy metric. Given a string of length n there is some maximal Shannon Entropy score it can have. However a string can reduce it's Shannon Entropy by repeating characters in it's sequence. This metric penalizes passwords that repeat characters. Fun fact, the amount of guesses required to guess a password given a Shannon Entropy is given by 2^H where H is the Shannon Entropy. However, it's important to note that this guess assumes a rudimentary attack methodology.", 
-		"Given the pool of characters (ASCII) this score is calculated by how many Lowercase, Uppercase, Numbers, and Special characters are used. This score defaults to being minimized and increases as the length and as all 4 types of characters are fully utilized. Eventually, a long enough password will pass this metric even if it's merely a sequence of a single character which makes this metric generally unreliable. However, this metric sees common use in most signup password scorers." ,
-		"Based on, UK's NCSC stats on most common passwords (i.e. 'password', 'qwerty'). Being more similar to these passwords decreases the score. Similarity to a string is defined as how many string operations (i.e. character inserts, deletes, swaps, etc.) are necessary to transform one string into another.",
-		"Measures character rarity via a Huffman Encode of the UK's NCSC's stats on most common passowrds. Sums each characters 'rarity' based on the Huffman Encoding of the respective character. Characters that are more commonly used result in a lower Character Rarity score. Huffman Encoding is an ecoding algorithm that assigns common (shorter) binary sequences to more common characters. Consequently, we can evaluate the Huffman binary sequence as a number instead of string to assign a 'rarity score' to the respective character where a greater number implies a higher rarity."
-	];
+const base_modal_content = [
+	"Measures the 'uniqueness' of the password via the Shannon Entropy metric. Given a string of length n there is some maximal Shannon Entropy score it can have. However a string can reduce it's Shannon Entropy by repeating characters in it's sequence. This metric penalizes passwords that repeat characters. Fun fact, the amount of guesses required to guess a password given a Shannon Entropy is given by 2^H where H is the Shannon Entropy. However, it's important to note that this guess assumes a rudimentary attack methodology.",
+	"Given the pool of characters (ASCII) this score is calculated by how many Lowercase, Uppercase, Numbers, and Special characters are used. This score defaults to being minimized and increases as the length and as all 4 types of characters are fully utilized. Eventually, a long enough password will pass this metric even if it's merely a sequence of a single character which makes this metric generally unreliable. However, this metric sees common use in most signup password scorers.",
+	"Based on, UK's NCSC stats on most common passwords (i.e. 'password', 'qwerty'). Being more similar to these passwords decreases the score. Similarity to a string is defined as how many string operations (i.e. character inserts, deletes, swaps, etc.) are necessary to transform one string into another.",
+	"Measures character rarity via a Huffman Encode of the UK's NCSC's stats on most common passowrds. Sums each characters 'rarity' based on the Huffman Encoding of the respective character. Characters that are more commonly used result in a lower Character Rarity score. Huffman Encoding is an ecoding algorithm that assigns common (shorter) binary sequences to more common characters. Consequently, we can evaluate the Huffman binary sequence as a number instead of string to assign a 'rarity score' to the respective character where a greater number implies a higher rarity.",
+];
 
 var global_scores;
 
@@ -80,8 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		button.addEventListener("click", () => {
 			// Get data attributes
 			const title = button.dataset.title;
-			//let content = ""
-			switch(title) {
+			switch (title) {
 				case "Character Rarity (Huffman Encoding)":
 					modalBody.textContent = base_modal_content[3] + ` Your Character Rarity Score: ${global_scores.huffmanEncodingScore}`;
 					break;
@@ -95,11 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					modalBody.textContent = base_modal_content[0] + ` Your Shannon Entropy Score: ${global_scores.shannonEntropyScore}`;
 					break;
 			}
-			//const content = button.dataset.content;
 
 			// Update modal content
 			modalTitle.textContent = title;
-			//modalBody.textContent = content;
 
 			// Show modal
 			modal.show();
@@ -123,9 +119,6 @@ function analyzePassword(password) {
 }
 
 function updateUI(analysis) {
-	modal_content = base_modal_content;
-
-	console.log(analysis.huffmanEncodingScore);
 	// Update Shannon Entropy Strength Bar
 	shannonEntropyStrengthLevelText.innerHTML = getStrengthLevel(
 		analysis.shannonEntropyScore
@@ -175,10 +168,14 @@ function updateUI(analysis) {
 	);
 
 	// Update Overall Strength Bar
+	// Compute Geometric Mean
 	let overallScore = 1;
-	for (const [scoreName, score] of Object.entries(analysis))
-		overallScore *= (score);
-	overallScore = overallScore**(1/4);
+	overallScore *= analysis.shannonEntropyScore;
+	overallScore *= analysis.passwordEntropyScore;
+	overallScore *= analysis.sequenceAlignmentScore;
+	overallScore *= huffmanEncodingScore;
+	overallScore = overallScore ** (1 / 8);
+
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
@@ -189,8 +186,6 @@ function updateUI(analysis) {
 
 function getSuggestions(analysis) {
 	const suggestions = [];
-
-	console.log(analysis);
 
 	if (
 		analysis.shannonEntropyScore != 0 ||
