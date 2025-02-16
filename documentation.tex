@@ -129,7 +129,21 @@ E=\log_2(R^L) = L\log_2(R)
 where $R$ is the character pool and $L$ is the length of the password.
 This will be used to measure the total amount of possible passwords of the given length. Under the assumption that passwords are guessed randomly, the password entropy corresponds to the amount of total passwords that are possible.  
 
+\section{Commonality Metric}
+Purely mathematical models based on information theory alone may not be able fully quantify the strength of a password. Human tendencies about known popular, and thus vulnerable passwords, must also be considered. Sometimes passwords may score highly on many of the mathematical metrics, but in reality, may be poor passwords due to how prevalent they are. Consider for example passwords like 
+\verb!qazwsx#123!
+which scores quite highly among all the mathematical metrics, but is probably in reality a poor password due to how similar they are to known passwords.
+\subsection{Commonality Through Sequence Alignment}
+To quantify a metric for commonality, a Dynamic Programming approach for the Sequence Alignment Problem as implemented. It scans through a list of 5000 known common passwords and seeks similarities between the given passwords and the common passwords.
 
+\section{Combining of the Metrics}
+The metrics described above were combined via a weighted geometric mean. A geometric mean was chosen to better reflect an accurate combination of the metrics. 
+This choice was made so that the overall password metric would be sensitive to low values in any of the metrics, as a password that scores extremely poorly in any given metric should not score highly overall.
+A weighted geometric mean is given as follows
+\[
+\bar{x} = \left(\prod_{i=1}^{n} x_i^{w_i}\right)^{1/\sum_{i=1}^n w_i}
+\]
+For our specific model, the password entropy is weighted higher compared to the other metrics.
 
 \newpage
 \begin{thebibliography}{00}
