@@ -119,6 +119,7 @@ function analyzePassword(password) {
 }
 
 function updateUI(analysis) {
+	console.log(analysis);
 	// Update Shannon Entropy Strength Bar
 	shannonEntropyStrengthLevelText.innerHTML = getStrengthLevel(
 		analysis.shannonEntropyScore
@@ -180,19 +181,14 @@ function updateUI(analysis) {
 		`Your Character Rarity Score: {analysis.huffmanEncodingScore}`;
 
 	// Update Overall Strength Bar
+	// Compute Geometric Mean
 	let overallScore = 1;
-	for (const [scoreName, score] of Object.entries(analysis))
-		if (scoreName == "shannonEntropyScore") {
-			overallScore *= score;
-		} else if (scoreName == "passwordEntropyScore") {
-			overallScore *= score ** 5;
-		} else if (scoreName == "sequenceAlignmentScore") {
-			overallScore *= score;
-		} else {
-			overallScore *= score;
-		}
-
+	overallScore *= analysis.shannonEntropyScore;
+	overallScore *= analysis.passwordEntropyScore;
+	overallScore *= analysis.sequenceAlignmentScore;
+	overallScore *= huffmanEncodingScore;
 	overallScore = overallScore ** (1 / 8);
+
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
 	overallStrengthLevelText.style.color = getBarColor(overallScore);
 	overallStrengthBar.style.width = `${overallScore}%`;
