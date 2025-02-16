@@ -83,22 +83,32 @@ document.addEventListener("DOMContentLoaded", () => {
 				case "Character Rarity (Huffman Encoding)":
 					modalBody.textContent =
 						base_modal_content[3] +
-						` Your Character Rarity Score: ${global_scores.huffmanEncodingScore}`;
+						` Your Character Rarity Score: ${Math.round(
+							global_scores.huffmanEncodingScore
+						)}`;
 					break;
 				case "Commonality with Broken Passwords (Sequence Alignment)":
 					modalBody.textContent =
 						base_modal_content[2] +
-						` Your Password Most Closely Matches: ${global_scores.sequenceAlignmentPassword} w/ a percent match of: ${global_scores.sequenceAlignmentPercent}`;
+						` Your Password Most Closely Matches: ${
+							global_scores.sequenceAlignmentPassword
+						} w/ a percent match of: ${Math.round(
+							global_scores.sequenceAlignmentPercent
+						)}`;
 					break;
 				case "Length and Variety (Password Entropy)":
 					modalBody.textContent =
 						base_modal_content[1] +
-						` Your Password Entropy Score: ${global_scores.passwordEntropyScore}`;
+						` Your Password Entropy Score: ${Math.round(
+							global_scores.passwordEntropyScore
+						)}`;
 					break;
 				case "Character Uniqueness (Shannon Entropy)":
 					modalBody.textContent =
 						base_modal_content[0] +
-						` Your Shannon Entropy Score: ${global_scores.shannonEntropyScore}`;
+						` Your Shannon Entropy Score: ${Math.round(
+							global_scores.shannonEntropyScore
+						)}`;
 					break;
 			}
 
