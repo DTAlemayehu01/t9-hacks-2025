@@ -189,7 +189,7 @@ function updateUI(analysis) {
 	// Compute Geometric Mean
 	let overallScore = 1;
 	overallScore *= analysis.shannonEntropyScore;
-	overallScore *= analysis.passwordEntropyScore;
+	overallScore *= (analysis.passwordEntropyScore)**5;
 	overallScore *= analysis.sequenceAlignmentScore;
 	overallScore *= analysis.huffmanEncodingScore;
 	overallScore = overallScore ** (1 / 8);
