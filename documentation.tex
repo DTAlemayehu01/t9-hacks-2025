@@ -113,10 +113,13 @@ Now summing over all expectations, we have the expected surprise of a random var
 \[
 H(x) = \sum_{i=1}^n p_i\log_2p_i
 \]
+For us, we take the random variable $x$ to be all the characters in the password.
+
 
 \subsubsection{Shannon Entropy Ratio}
-It can be proven using Lagrange Multipliers that the distribution that maximizes entropy such that .
-Thus we will take a score 
+It can be proven using Lagrange Multipliers that the distribution that maximizes entropy is a discrete uniform distribution of probabilities. 
+
+We will use the ratio of the Shannon Entropy to the maximum possible Shannon Entropy as our metric to analyze how varied the characters are in the password.
 \[
 R = \frac{H(x, n)}{H_{\text{max}}(n)}
 \]
@@ -128,6 +131,7 @@ E=\log_2(R^L) = L\log_2(R)
 \]
 where $R$ is the character pool and $L$ is the length of the password.
 This will be used to measure the total amount of possible passwords of the given length. Under the assumption that passwords are guessed randomly, the password entropy corresponds to the amount of total passwords that are possible.  
+For this model, $R$ is based on the amount of character sets (i.e: lowercase letters, capital letters, special symbols, etc...).
 
 \section{Commonality Metric}
 Purely mathematical models based on information theory alone may not be able fully quantify the strength of a password. Human tendencies about known popular, and thus vulnerable passwords, must also be considered. Sometimes passwords may score highly on many of the mathematical metrics, but in reality, may be poor passwords due to how prevalent they are. Consider for example passwords like 
