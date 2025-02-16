@@ -81,16 +81,24 @@ document.addEventListener("DOMContentLoaded", () => {
 			const title = button.dataset.title;
 			switch (title) {
 				case "Character Rarity (Huffman Encoding)":
-					modalBody.textContent = base_modal_content[3] + ` Your Character Rarity Score: ${global_scores.huffmanEncodingScore}`;
+					modalBody.textContent =
+						base_modal_content[3] +
+						` Your Character Rarity Score: ${global_scores.huffmanEncodingScore}`;
 					break;
 				case "Commonality with Broken Passwords (Sequence Alignment)":
-					modalBody.textContent = base_modal_content[2]  + ` Your Password Most Closely Matches: ${global_scores.sequenceAlignmentPassword} w/ a percent match of: ${global_scores.sequenceAlignmentPercent}`;
+					modalBody.textContent =
+						base_modal_content[2] +
+						` Your Password Most Closely Matches: ${global_scores.sequenceAlignmentPassword} w/ a percent match of: ${global_scores.sequenceAlignmentPercent}`;
 					break;
 				case "Length and Variety (Password Entropy)":
-					modalBody.textContent = base_modal_content[1] + ` Your Password Entropy Score: ${global_scores.passwordEntropyScore}`; 
+					modalBody.textContent =
+						base_modal_content[1] +
+						` Your Password Entropy Score: ${global_scores.passwordEntropyScore}`;
 					break;
 				case "Character Uniqueness (Shannon Entropy)":
-					modalBody.textContent = base_modal_content[0] + ` Your Shannon Entropy Score: ${global_scores.shannonEntropyScore}`;
+					modalBody.textContent =
+						base_modal_content[0] +
+						` Your Shannon Entropy Score: ${global_scores.shannonEntropyScore}`;
 					break;
 			}
 
@@ -173,7 +181,7 @@ function updateUI(analysis) {
 	overallScore *= analysis.shannonEntropyScore;
 	overallScore *= analysis.passwordEntropyScore;
 	overallScore *= analysis.sequenceAlignmentScore;
-	overallScore *= huffmanEncodingScore;
+	overallScore *= analysis.huffmanEncodingScore;
 	overallScore = overallScore ** (1 / 8);
 
 	overallStrengthLevelText.innerHTML = getStrengthLevel(overallScore);
