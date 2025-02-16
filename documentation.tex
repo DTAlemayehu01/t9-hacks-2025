@@ -136,6 +136,32 @@ which scores quite highly among all the mathematical metrics, but is probably in
 \subsection{Commonality Through Sequence Alignment}
 To quantify a metric for commonality, a Dynamic Programming approach for the Sequence Alignment Problem as implemented. It scans through a list of 5000 known common passwords and seeks similarities between the given passwords and the common passwords.
 
+\subsection{Huffman Encoding}
+
+Finally, a metric needs to be used to consider the rarity of letters used in the password. The Huffman encoding is often used for this, which is an algorithm for converting letters into strings of binary digits such that more common letters are assigned shorter strings. For example, the string ``Hello world" could be encoded to:
+
+{
+\centering
+\begin{tabular}{c|c}
+    \centering
+    Letter & code\\
+    \hline
+    l & 000 \\
+    o & 001 \\
+    e & 01 \\
+    t & 100 \\
+    r & 101 \\
+    h & 11
+\end{tabular}\par
+}
+
+The length of the Huffman encoding could be considered a measure of surprise of each individual character treated independently - in particular, if the following formula is used, where $w$ is the string inputted, and $n$ is its length, $\mathcal{H}(w,n)$ satisfies the surprise axioms. Certainly, $\mathcal{H}(a,n)=0$ if $a$ only consists of a single character, because no information need be given to fully specify the string and thus the Huffman encoding is an empty string, and if only a single character exists then a string containing that character will have probability 1. A useful feature of the Huffman encoding is that, if any individual character is rarer than any other, the length of its Huffman encoding will be longer, which means that Axiom 2 is satisfied. Since the probabilities of letters are discrete, axiom 3 is trivially satisfied. Finally, for any two words $w_1$ and $w_2$ (with lengths $n_1$ and $n_2$), the probability of both of them occurring in a string of length $n_1+n_2$ is equal to each individual probability multiplied. However, the Huffman encoding for each will be simply the length of the two strings concatenated. So, $\mathcal{H}(w_1w_2,n_1+n_2)=\mathcal{H}(w_1,n_1)+\mathcal{H}(w_2,n_2)$
+
+To measure the password strength, we created a Huffman encoding tree based on the NCSC list of 100,000 most commonly used passwords. Then, for each inputted password, we measured the length of its Huffman encoding. So, passwords that contain more unexpected characters will have a higher value from the Huffman encoding.
+For the application of our website, we used a slightly modified version of length so that reasonable passwords are scaled between a value of 0 and 1. Here $\mathcal{H}_{min}(n)$ represents the Huffman encoding if only the minimum-value characters are used and $\mathcal{H}_{ascii}(n)$ represents the length of the default binary encoding for ascii characters, which is equal to $8n$. Such a value is used as our "maximum" value. So, if the Huffman encoding of the password based on the tree generated from common passwords improves on the ascii encoding, then the password's score will be low.
+
+\[\mathcal{H}_{mod}(w,n)=\frac{\mathcal{H}(w,n)-\mathcal{H}_{min}(n)}{\mathcal{H}_{ascii}(n)-\mathcal{H}_{min}(n)}\]
+
 \section{Combining of the Metrics}
 The metrics described above were combined via a weighted geometric mean. A geometric mean was chosen to better reflect an accurate combination of the metrics. 
 This choice was made so that the overall password metric would be sensitive to low values in any of the metrics, as a password that scores extremely poorly in any given metric should not score highly overall.
