@@ -133,12 +133,6 @@ where $R$ is the character pool and $L$ is the length of the password.
 This will be used to measure the total amount of possible passwords of the given length. Under the assumption that passwords are guessed randomly, the password entropy corresponds to the amount of total passwords that are possible.  
 For this model, $R$ is based on the amount of character sets (i.e: lowercase letters, capital letters, special symbols, etc...).
 
-\section{Commonality Metric}
-Purely mathematical models based on information theory alone may not be able fully quantify the strength of a password. Human tendencies about known popular, and thus vulnerable passwords, must also be considered. Sometimes passwords may score highly on many of the mathematical metrics, but in reality, may be poor passwords due to how prevalent they are. Consider for example passwords like 
-\verb!qazwsx#123!
-which scores quite highly among all the mathematical metrics, but is probably in reality a poor password due to how similar they are to known passwords.
-\subsection{Commonality Through Sequence Alignment}
-To quantify a metric for commonality, a Dynamic Programming approach for the Sequence Alignment Problem as implemented. It scans through a list of 5000 known common passwords and seeks similarities between the given passwords and the common passwords.
 
 \subsection{Huffman Encoding}
 
@@ -165,6 +159,14 @@ To measure the password strength, we created a Huffman encoding tree based on th
 For the application of our website, we used a slightly modified version of length so that reasonable passwords are scaled between a value of 0 and 1. Here $\mathcal{H}_{min}(n)$ represents the Huffman encoding if only the minimum-value characters are used and $\mathcal{H}_{ascii}(n)$ represents the length of the default binary encoding for ascii characters, which is equal to $8n$. Such a value is used as our "maximum" value. So, if the Huffman encoding of the password based on the tree generated from common passwords improves on the ascii encoding, then the password's score will be low.
 
 \[\mathcal{H}_{mod}(w,n)=\frac{\mathcal{H}(w,n)-\mathcal{H}_{min}(n)}{\mathcal{H}_{ascii}(n)-\mathcal{H}_{min}(n)}\]
+
+\section{Commonality Metric}
+Purely mathematical models based on information theory alone may not be able fully quantify the strength of a password. Human tendencies about known popular, and thus vulnerable passwords, must also be considered. Sometimes passwords may score highly on many of the mathematical metrics, but in reality, may be poor passwords due to how prevalent they are. Consider for example passwords like 
+\verb!qazwsx#123!
+which scores quite highly among all the mathematical metrics, but is probably in reality a poor password due to how similar they are to known passwords.
+\subsection{Commonality Through Sequence Alignment}
+To quantify a metric for commonality, a Dynamic Programming approach for the Sequence Alignment Problem as implemented. It scans through a list of 5000 known common passwords and seeks similarities between the given passwords and the common passwords.
+
 
 \section{Combining of the Metrics}
 The metrics described above were combined via a weighted geometric mean. A geometric mean was chosen to better reflect an accurate combination of the metrics. 
